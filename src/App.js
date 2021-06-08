@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
@@ -61,10 +61,14 @@ function App() {
     }
   })
 
+  const myFunction = useCallback((c, n2) => c * n2 * c + 300, [])
+  // useCallback will memorize your function and re-calculate it just when
+  // one of the dependencies gets a new value
+
   return (
     <div className="App">
       <header className="App-header">
-        <div onClick={() => setName('Vardan')}>{name}</div>
+        <div onClick={() => setName('Vardan')}>{myFunction(counter, 85)}</div>
         <img src={logo} className="App-logo" alt="logo" />
         <button onClick={() => setCounter(counter < 10 ? counter + 1 : counter)}>INCREASE</button>
         <p>{counter}</p>
